@@ -4,6 +4,7 @@
   "description": "用户角色授权API",
   "main": "src/index.mjs",
   "scripts": {
+    "start": "node --experimental-modules src/index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/nagucc/users-in-roles-api/issues"
   },
-  "homepage": "https://github.com/nagucc/users-in-roles-api#readme"
+  "homepage": "https://github.com/nagucc/users-in-roles-api#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
+    "users-in-roles": "^0.1.3"
+  }
 }
