@@ -6,6 +6,22 @@ import { mongoUrl } from '../config.mjs';
 
 const router = new express.Router();
 
+// 根据appId获取用户列表
+router.get(
+  '/users-by-appId/:appId',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    const manager = new MongoUserInRole(mongoUrl);
+    const { appId } = req.params;
+    try {
+      const users = await manager.usersByAppId(appId);
+      res.success(users);
+    } catch (e) {
+      res.fail('server error', e);
+    }
+  },
+);
+
 // 获取用户数据
 router.get(
   '/users/:appId/:userId',
