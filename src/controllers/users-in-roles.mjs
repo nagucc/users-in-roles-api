@@ -2,16 +2,15 @@ import express from 'express';
 import expressJwt from 'express-jwt';
 import MongoUserInRole from 'users-in-roles';
 import { expressJwtOptions } from '../utils.mjs';
-import { mongoUrl } from '../config.mjs';
+import { mongoUrl, collectionName } from '../config.mjs';
 
 const router = new express.Router();
-
+const manager = new MongoUserInRole(mongoUrl, collectionName);
 // 根据appId获取用户列表
 router.get(
   '/users-by-appId/:appId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
-    const manager = new MongoUserInRole(mongoUrl);
     const { appId } = req.params;
     try {
       const users = await manager.usersByAppId(appId);
@@ -27,7 +26,6 @@ router.get(
   '/users/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
-    const manager = new MongoUserInRole(mongoUrl);
     const { appId, userId } = req.params;
     try {
       const user = await manager.getUser(appId, userId);
@@ -43,7 +41,6 @@ router.put(
   '/users/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
-    const manager = new MongoUserInRole(mongoUrl);
     try {
       const { appId, userId } = req.params;
       const user = await manager.insertUser(appId, userId);
@@ -59,7 +56,6 @@ router.put(
   '/roles/:appId/:userId/:role',
   expressJwt(expressJwtOptions),
   async (req, res) => {
-    const manager = new MongoUserInRole(mongoUrl);
     try {
       const { appId, userId, role } = req.params;
       const result = await manager.addRole(appId, userId, role);
