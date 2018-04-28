@@ -21,7 +21,7 @@ app.use('*', (req, res, next) => {
     ret: 0,
     data,
   });
-  res.final = (msg, err) => {
+  res.fail = (msg, err) => {
     res.json({
       ret: -1,
       msg,
