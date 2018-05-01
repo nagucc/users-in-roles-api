@@ -1,6 +1,6 @@
 {
   "name": "users-in-roles-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "用户角色授权API",
   "main": "src/index.mjs",
   "scripts": {
@@ -23,6 +23,6 @@
     "debug": "^3.1.0",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
-    "users-in-roles": "^0.3.0"
+    "users-in-roles": "^0.3.3"
   }
 }

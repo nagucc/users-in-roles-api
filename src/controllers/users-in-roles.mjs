@@ -53,7 +53,7 @@ router.get(
 
 // 添加用户
 router.put(
-  '/users/appId/:appId/userId/:userId',
+  '/users/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
@@ -73,6 +73,7 @@ router.post(
   async (req, res) => {
     try {
       const { appId, userId, role } = req.params;
+      info(`AddRole: appId=${appId}, userId=${userId}, role=${role}`);
       const result = await manager.addRole(appId, userId, role);
       res.success(result);
     } catch (e) {
@@ -96,13 +97,29 @@ router.delete(
   },
 );
 
-// 附件userId到已存在的帐号中
+// 附加userId到已存在的帐号中
 router.post(
   '/users/attach-to/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
       const result = await manager.attachUser(req.params, req.body);
+      res.success(result);
+    } catch (e) {
+      console.log(e);
+      res.fail('server error', e);
+    }
+  },
+);
+
+// 从已存在的帐号中移除userId
+router.delete(
+  '/users/detach/:appId/:userId',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    try {
+      const { appId, userId } = req.params;
+      const result = await manager.detachUser(appId, userId);
       res.success(result);
     } catch (e) {
       console.log(e);
