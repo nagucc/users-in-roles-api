@@ -99,13 +99,20 @@ router.delete(
 
 // 附加userId到已存在的帐号中
 router.post(
-  '/attach-to/:appId/:userId',
+  '/attach/:newAppId/:newUserId/to/:oldAppId/:oldUserId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
-      info(`Attach-to:${req.params.appId} | ${req.params.userId} with ${req.body.appId} | ${req.body.userId}`);
-      if (!req.body || !req.body.appId || !req.body.userId) return res.fail('必须提供待附加的appId和userId');
-      const result = await manager.attachUser(req.params, req.body);
+      const {
+        oldAppId, oldUserId, newAppId, newUserId,
+      } = req.params;
+      const result = await manager.attachUser({
+        appId: oldAppId,
+        userId: oldUserId,
+      }, {
+        appId: newAppId,
+        userId: newUserId,
+      });
       res.success(result);
     } catch (e) {
       console.log(e);
