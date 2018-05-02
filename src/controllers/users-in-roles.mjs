@@ -8,7 +8,7 @@ const router = new express.Router();
 const manager = new MongoUserInRole(mongoUrl, collectionName);
 // 根据appId获取用户列表
 router.get(
-  '/users/by-appid/:appId',
+  '/by-appid/:appId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     const { appId } = req.params;
@@ -99,7 +99,7 @@ router.delete(
 
 // 附加userId到已存在的帐号中
 router.post(
-  '/users/attach-to/:appId/:userId',
+  '/attach-to/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
@@ -114,7 +114,7 @@ router.post(
 
 // 从已存在的帐号中移除userId
 router.delete(
-  '/users/detach/:appId/:userId',
+  '/detach/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
