@@ -103,6 +103,7 @@ router.post(
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
+      if (!req.body || !req.body.appId || !req.body.userId) return res.fail('必须提供待附加的appId和userId');
       const result = await manager.attachUser(req.params, req.body);
       res.success(result);
     } catch (e) {
