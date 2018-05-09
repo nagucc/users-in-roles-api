@@ -482,9 +482,9 @@ unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/unpipe/download/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
 
-users-in-roles@^0.3.3:
-  version "0.3.3"
-  resolved "http://registry.npm.taobao.org/users-in-roles/download/users-in-roles-0.3.3.tgz#5c6bfcc684fe5dfd4060df83ae21a8c048d42ece"
+users-in-roles@^0.4.0:
+  version "0.4.0"
+  resolved "http://registry.npm.taobao.org/users-in-roles/download/users-in-roles-0.4.0.tgz#dc6eca609e59e07fdae38289b5e0a9c8a98d4991"
   dependencies:
     debug "^3.1.0"
     mongodb "^2.2.27"
