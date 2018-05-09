@@ -1,11 +1,13 @@
 import express from 'express';
 import expressJwt from 'express-jwt';
-import MongoUserInRole from 'users-in-roles';
+import uir from 'users-in-roles';
 import { expressJwtOptions } from '../utils.mjs';
-import { mongoUrl, collectionName, info, error } from '../config.mjs';
+import { mongoUrl, collectionName, applyCol, info, error } from '../config.mjs';
 
 const router = new express.Router();
-const manager = new MongoUserInRole(mongoUrl, collectionName);
+const manager = new uir.UserInRole(mongoUrl, collectionName);
+const apply = new uir.Apply(mongoUrl, applyCol);
+
 // 根据appId获取用户列表
 router.get(
   '/by-appid/:appId',
@@ -16,6 +18,7 @@ router.get(
       const users = await manager.usersByAppId(appId);
       res.success(users);
     } catch (e) {
+      error('/by-appid/:', e);
       res.fail('server error', e);
     }
   },
@@ -131,7 +134,23 @@ router.delete(
       const result = await manager.detachUser(appId, userId);
       res.success(result);
     } catch (e) {
-      console.log(e);
+      error('/detach/:appId:/userId:', e);
+      res.fail('server error', e);
+    }
+  },
+);
+
+// 添加申请记录
+router.put(
+  '/apply/:appId',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    try {
+      const { appId } = req.params;
+      const result = await apply.insertApply(appId, req.body);
+      res.success(result);
+    } catch (e) {
+      error('/apply/:appId:', e);
       res.fail('server error', e);
     }
   },

@@ -9,3 +9,4 @@ export const error = debug('uir-api:error');
 
 export const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/uir';
 export const collectionName = process.env.COL_NAME || 'user_in_role';
+export const applyCol = process.env.APPLY_COL_NAME || 'uir_apply';
