@@ -142,12 +142,12 @@ router.delete(
 
 // 添加申请记录
 router.put(
-  '/apply/:appId',
+  '/apply/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
-      const { appId } = req.params;
-      const result = await apply.insertApply(appId, req.body);
+      const { appId, userId } = req.params;
+      const result = await apply.insertApply(appId, userId, req.body);
       res.success(result);
     } catch (e) {
       error('/apply/:appId:', e);
