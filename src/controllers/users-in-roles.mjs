@@ -166,4 +166,19 @@ router.put(
   },
 );
 
+// 获取app列表
+router.get(
+  '/apps',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    try {
+      const result = await appsManager.list();
+      res.success(result);
+    } catch (e) {
+      error('/apps:', e);
+      res.fail('server error', e);
+    }
+  },
+);
+
 export default router;
