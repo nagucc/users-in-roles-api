@@ -2,12 +2,12 @@ import express from 'express';
 import expressJwt from 'express-jwt';
 import uir from 'users-in-roles';
 import { expressJwtOptions } from '../utils.mjs';
-import { mongoUrl, collectionName, applyCol, info, error } from '../config.mjs';
+import { mongoUrl, collectionName, applyCol, appsCol, info, error } from '../config.mjs';
 
 const router = new express.Router();
 const manager = new uir.UserInRole(mongoUrl, collectionName);
 const apply = new uir.Apply(mongoUrl, applyCol);
-const appsManager = new uir.Apps(mongoUrl, applyCol);
+const appsManager = new uir.Apps(mongoUrl, appsCol);
 
 // 根据appId获取用户列表
 router.get(
@@ -161,21 +161,6 @@ router.put(
       res.success(result);
     } catch (e) {
       error('/apply/:appId:', e);
-      res.fail('server error', e);
-    }
-  },
-);
-
-// 获取app列表
-router.get(
-  '/apps',
-  expressJwt(expressJwtOptions),
-  async (req, res) => {
-    try {
-      const result = await appsManager.list();
-      res.success(result);
-    } catch (e) {
-      error('/apps:', e);
       res.fail('server error', e);
     }
   },
