@@ -181,4 +181,20 @@ router.get(
   },
 );
 
+// 删除申请
+router.delete(
+  '/apply/:appId/:userId',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    try {
+      const { appId, userId } = req.params;
+      const result = await apply.remove(appId, userId);
+      res.success(result);
+    } catch (e) {
+      error('DELETE /apply/:appId/:userId ', e);
+      res.fail('server error', e);
+    }
+  },
+);
+
 export default router;
