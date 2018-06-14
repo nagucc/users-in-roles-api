@@ -166,4 +166,19 @@ router.put(
   },
 );
 
+// 获取申请列表
+router.get(
+  '/apply',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    try {
+      const result = await apply.list();
+      res.success(result);
+    } catch (e) {
+      error('/apply', e);
+      res.fail('server error', e);
+    }
+  },
+);
+
 export default router;
