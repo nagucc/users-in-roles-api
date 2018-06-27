@@ -5,6 +5,9 @@ import bodyParser from 'body-parser';
 import { host, port, secret } from './config.mjs';
 
 import uir from './controllers/users-in-roles.mjs';
+import users from './controllers/users.mjs';
+import apps from './controllers/apps.mjs';
+import apply from './controllers/apply.mjs';
 
 const app = express();
 
@@ -29,6 +32,10 @@ app.use('*', (req, res, next) => {
   };
   next();
 });
+app.use('/users', users);
+app.use('/apps', apps);
+app.use('/apply', apply);
+
 app.use('/', uir);
 
 app.listen(port, () => {
