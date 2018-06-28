@@ -10,10 +10,10 @@ const manager = new uir.UserInRole(mongoUrl, collectionName);
 
 // 获取用户数据
 router.get(
-  '/:appId/:userId',
+  '/',
   expressJwt(expressJwtOptions),
   async (req, res) => {
-    const { appId, userId } = req.params;
+    const { appId, userId } = req.query;
     info(`START GetUser: appId=${appId}, userId=${userId}`);
     try {
       const user = await manager.getUser(appId, userId);
