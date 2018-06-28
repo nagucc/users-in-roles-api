@@ -9,7 +9,7 @@ const apply = new uir.Apply(mongoUrl, applyCol);
 
 // 添加申请记录
 router.put(
-  '/apply/:appId/:userId',
+  '/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
@@ -25,7 +25,7 @@ router.put(
 
 // 获取申请列表
 router.get(
-  '/apply',
+  '/',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
@@ -40,7 +40,7 @@ router.get(
 
 // 删除申请
 router.delete(
-  '/apply/:appId/:userId',
+  '/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {

@@ -10,7 +10,7 @@ const appsManager = new uir.Apps(mongoUrl, appsCol);
 
 // 获取应用列表
 router.get(
-  '/apps',
+  '/',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {

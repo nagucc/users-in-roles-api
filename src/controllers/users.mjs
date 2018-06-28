@@ -10,7 +10,7 @@ const manager = new uir.UserInRole(mongoUrl, collectionName);
 
 // 获取用户数据
 router.get(
-  '/users/:appId/:userId',
+  '/:appId/:userId',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     const { appId, userId } = req.params;
@@ -27,7 +27,7 @@ router.get(
 
 // 添加用户
 router.put(
-  '/users',
+  '/',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
