@@ -80,15 +80,16 @@ router.post(
 
 // 从已存在的帐号中移除userId
 router.delete(
-  '/detach/:appId/:userId',
+  '/detach',
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
-      const { appId, userId } = req.params;
+      const { appId, userId } = req.query;
+      info(`DELETE /detach?appId=${appId}&userId=${userId}`);
       const result = await manager.detachUser(appId, userId);
       res.success(result);
     } catch (e) {
-      error('/detach/:appId:/userId:', e);
+      error('DELETE /detach?appId=&userId=', e);
       res.fail('server error', e);
     }
   },
