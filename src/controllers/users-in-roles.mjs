@@ -84,8 +84,8 @@ router.delete(
   expressJwt(expressJwtOptions),
   async (req, res) => {
     try {
-      const { appId, userId } = req.query;
-      info(`DELETE /detach?appId=${appId}&userId=${userId}`);
+      const { appId, userId } = req.body;
+      info(`START DELETE /detach?appId=${appId}&userId=${userId}`);
       const result = await manager.detachUser(appId, userId);
       res.success(result);
     } catch (e) {
