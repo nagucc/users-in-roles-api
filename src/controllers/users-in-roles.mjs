@@ -23,37 +23,6 @@ router.get(
   },
 );
 
-// 为用户添加角色
-router.post(
-  '/roles/:appId/:userId/:role',
-  expressJwt(expressJwtOptions),
-  async (req, res) => {
-    try {
-      const { appId, userId, role } = req.params;
-      info(`AddRole: appId=${appId}, userId=${userId}, role=${role}`);
-      const result = await manager.addRole(appId, userId, role);
-      res.success(result);
-    } catch (e) {
-      res.fail('server error', e);
-    }
-  },
-);
-
-// 删除用户的角色
-router.delete(
-  '/roles/:appId/:userId/:role',
-  expressJwt(expressJwtOptions),
-  async (req, res) => {
-    try {
-      const { appId, userId, role } = req.params;
-      const result = await manager.removeRole(appId, userId, role);
-      res.success(result);
-    } catch (e) {
-      res.fail('server error', e);
-    }
-  },
-);
-
 // 附加userId到已存在的帐号中
 router.post(
   '/attach/:newAppId/:newUserId/to/:oldAppId/:oldUserId',

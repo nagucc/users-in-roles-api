@@ -8,6 +8,7 @@ import uir from './controllers/users-in-roles.mjs';
 import users from './controllers/users.mjs';
 import apps from './controllers/apps.mjs';
 import apply from './controllers/apply.mjs';
+import roles from './controllers/roles.mjs';
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('*', (req, res, next) => {
 app.use('/users', users);
 app.use('/apps', apps);
 app.use('/apply', apply);
+app.use('/roles', roles);
 
 app.use('/', uir);
 
