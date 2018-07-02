@@ -17,6 +17,7 @@ router.get(
     info(`START GetUser: appId=${appId}, userId=${userId}`);
     try {
       const user = await manager.getUser(appId, userId);
+      info(`END GetUser: appId=${appId}, userId=${userId}, result: ${JSON.stringify(user)}`);
       res.success(user);
     } catch (e) {
       error(e);
