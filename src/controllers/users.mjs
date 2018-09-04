@@ -43,4 +43,45 @@ router.put(
   },
 );
 
+// 附加userId到已存在的帐号中
+router.post(
+  '/attach',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    try {
+      const {
+        oldAppId, oldUserId, newAppId, newUserId,
+      } = req.body;
+      const result = await manager.attachUser({
+        appId: oldAppId,
+        userId: oldUserId,
+      }, {
+        appId: newAppId,
+        userId: newUserId,
+      });
+      res.success(result);
+    } catch (e) {
+      console.log(e);
+      res.fail('server error', e);
+    }
+  },
+);
+
+// 从已存在的帐号中移除userId
+router.delete(
+  '/detach',
+  expressJwt(expressJwtOptions),
+  async (req, res) => {
+    try {
+      const { appId, userId } = req.body;
+      info(`START DELETE /detach?appId=${appId}&userId=${userId}`);
+      const result = await manager.detachUser(appId, userId);
+      res.success(result);
+    } catch (e) {
+      error('DELETE /detach?appId=&userId=', e);
+      res.fail('server error', e);
+    }
+  },
+);
+
 export default router;
